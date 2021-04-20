@@ -1,0 +1,39 @@
+How TO open ui in py
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+import sqlite3
+
+import sys
+
+from PyQt5.uic import loadUiType
+
+ui ,_ = loadUiType('library.ui')
+
+
+class MainApp(QMainWindow, ui):
+    def __int__(self):
+        QMainWindow.__init__(self)
+        self.setupUi(self)
+
+    def Handle_UI_Chages(self):
+        pass
+
+    def Hanle_Buttons(self):
+        pass
+    def Show_Themes(self):
+        pass
+    def Hide_Themes(self):
+        pass
+    
+def main():
+    app = QApplication(sys.argv)
+    MainWindow = QMainWindow()
+    ui = MainApp()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    main()
