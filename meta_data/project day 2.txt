@@ -1,0 +1,120 @@
+class MainApp(QMainWindow, ui):
+    def __int__(self):
+        QMainWindow.__init__(self)
+        self.setupUi(self)
+
+    def Handle_UI_Changes(self):
+        self.Hide_Themes()
+        self.tabWidget.tabBar().setVisible(False)
+
+    def Handle_Buttons(self):
+        self.pushButton_5.clicked.connect(self.Show_Themes)
+        self.pushButton_18.clicked.connect(self.Hide_Themes)
+        self.pushButton.clicked.connect(self.Open_day_to_day)
+        self.pushButton_2.clicked.connect(self.Open_book)
+        self.pushButton_3.clicked.connect(self.Open_user)
+        self.pushButton_4.clicked.connect(self.Open_setting)
+        self.pushButton_8.clicked.connect(self.Add_books)
+        self.pushButton_13.clicked.connect(self.Add_category)
+        self.pushButton_24.clicked.connect(self.Add_Author)
+        self.pushButton_25.clicked.connect(self.Add_publisher)
+
+
+    def Show_Themes(self):
+        self.groupBox3.show()
+
+    def Hide_Themes(self):
+        self.groupBox3.hide()
+        #print("Yes Here")
+
+    def Open_day_to_day(self):
+        self.tabWidget.setCurrentIndex(0)
+
+    def Open_book(self):
+        self.tabWidget.setCurrentIndex(1)
+
+    def Open_user(self):
+        self.tabWidget.setCurrentIndex(2)
+
+    def Open_setting(self):
+        self.tabWidget.setCurrentIndex(3)
+
+    ##########Books Database############
+
+    def Add_books(self):
+        db = sqlite3.connect('library.sqlite')
+        cursor = db.cursor()
+
+        book_title = self.lineEdit.text()
+        book_desc = self.plainTextEdit.text()
+        book_code = self.lineEdit_2.text()
+        book_price = self.lineEdit_6.text()
+        book_author = self.comboBox_9.CurrentText()
+        book_publisher = self.comboBox_10.CurrentText()
+        book_category = self.comboBox_3.CurrentText()
+
+    def Search_books(self):
+        pass
+
+
+    def Edit_Books(self):
+        pass
+
+
+    def Delete_books(self):
+        pass
+
+    """##########User Database#############"""
+    def Add_New_User(self):
+        pass
+    def Login(self):
+        pass
+    def Edit_user(self):
+        pass
+
+    """##########Setting Database#############"""
+    def Add_category(self):
+        db = sqlite3.connect('library.sqlite')
+        cursor = db.cursor()
+        category_name = self.lineEdit_19.text()
+        cursor.execute('''INSERT INTO category(category_name) VALUES(?)''', (category_name,))
+        db.commit()
+        self.statusbar.showMessage("New Category Successfully Added!")
+
+
+    def Add_Author(self):
+        db = sqlite3.connect('library.sqlite')
+        cursor = db.cursor()
+        author_name = self.lineEdit_20.text()
+        cursor.execute('''INSERT INTO authors(author_name) VALUES(?)''', (author_name,))
+        db.commit()
+        self.statusbar.showMessage("New Author name Successfully Added!")
+
+
+    def Add_publisher(self):
+        db = sqlite3.connect('library.sqlite')
+        cursor = db.cursor()
+        publisher_name = self.lineEdit_21.text()
+        cursor.execute('''INSERT INTO publisher(publisher_name) VALUES(?)''', (publisher_name,))
+        db.commit()
+        self.statusbar.showMessage("New Publisher name Successfully Added!")
+
+
+
+def main():
+    app = QApplication(sys.argv)
+    MainWindow = QMainWindow()
+    Ui = MainApp()
+    Ui.setupUi(MainWindow)
+    MainWindow.show()
+    """Ui Running From Here"""
+
+    Ui.Handle_UI_Changes()
+    Ui.Handle_Buttons()
+
+    """End Here"""
+    sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    main()
