@@ -37,6 +37,14 @@ class Login(QWidget, Ui_Form):
                 self.label_2.setText("Incorrect Username or Password")
 
 
+def main():
+
+    app = QApplication(sys.argv)
+    window = Login()
+    window.show()
+    app.exec_()
+
+   
 
 
 
